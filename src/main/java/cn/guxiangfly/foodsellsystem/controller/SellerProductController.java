@@ -10,6 +10,9 @@ import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
@@ -66,7 +69,18 @@ public class SellerProductController {
         return new ModelAndView("product/index", map);
     }
 
+
+    /**
+     * CacheEvict 这个注解会在执行save方法时，清除 redis中 key为123 的缓存
+     * CachePut 这个注解会在执行save方法时，将这个方法返回的值 塞入 redis中  覆盖key为123的缓存
+     * @param form
+     * @param bindingResult
+     * @param map
+     * @return
+     */
     @PostMapping("/save")
+    //@CachePut(cacheNames = "product",key = "123")
+    @CacheEvict(cacheNames = "product",key = "123")
     public ModelAndView save(@Valid ProductForm form,
                              BindingResult bindingResult,
                              Map<String, Object> map) {

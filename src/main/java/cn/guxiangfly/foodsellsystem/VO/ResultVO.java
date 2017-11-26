@@ -3,6 +3,8 @@ package cn.guxiangfly.foodsellsystem.VO;
 import lombok.Builder;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * ResultVO
  *
@@ -11,7 +13,9 @@ import lombok.Data;
  */
 @Data
 //@Builder
-public class ResultVO <T>{
+public class ResultVO <T> implements Serializable{
+
+    private static final long serialVersionUID = -9079831011077362658L;
     /** 错误码. */
     private Integer code;
 
